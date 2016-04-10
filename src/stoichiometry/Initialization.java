@@ -13,7 +13,8 @@ import Jama.Matrix;
 
 public class Initialization {
 	private static List<Element> allElements = new ArrayList<Element>();
-	private static String dataFile = "C:\\Users\\marklin\\Desktop\\pt-data2.txt";
+	//private static String dataFile = "C:\\Users\\marklin\\Desktop\\pt-data2.txt";
+	private static String dataFile = "C:\\Users\\Mark.Lin\\Desktop\\pt-data2.txt";
 
 	public static void main(String args[]) throws IOException{
 
@@ -28,14 +29,39 @@ public class Initialization {
 		
 		Equation chemical = new Equation();
 		if(!chemical.createEquation(reactants, products))
-			System.out.println("Equation was not valid");;
+			System.out.println("Equation was not valid");
 		
-		for(Compound i:chemical.getReactantCompounds())
-			for(Pair p: i.parsedCompound){
-				System.out.println(p.getPairElement().getName());
-				System.out.println(p.getPairElement().elementExists());
-			}
+		System.out.println("--------LHS Matrix--------");
+		for (int i=0; i<chemical.lhsMatrix.length; i++){
+			System.out.print("[");
+			for (int j=0; j<chemical.lhsMatrix[i].length;j++)
+				System.out.print(chemical.lhsMatrix[i][j]+", ");
+			System.out.println("]");
+		}
 		
+		System.out.println("--------RHS Matrix--------");
+		System.out.print("[");
+		for (int i=0; i<chemical.rhsMatrix.length; i++)
+			System.out.print(chemical.rhsMatrix[i]+", ");
+		System.out.println("]");
+		
+		Matrix lhs = new Matrix(chemical.lhsMatrix);
+		Matrix rhs = new Matrix(chemical.rhsMatrix, chemical.rhsMatrix.length);
+		
+		Matrix ans = lhs.solve(rhs);
+		
+		List<Integer> coef = new ArrayList<Integer>();
+		
+		System.out.println("--------Solution Matrix--------");  
+        //Printing Answers
+        for (int i=0;i<chemical.reactCompoundList.size()+chemical.prodCompoundList.size();i++)
+        	coef.add((int)(100000*(float)ans.get(i, 0)));
+        
+		int gcd = Calculator.findGCD(coef);
+		System.out.println("GCD:"+gcd);
+        for (int i=0;i<chemical.reactCompoundList.size()+chemical.prodCompoundList.size();i++)
+        	System.out.println(coef.get(i)/gcd);
+        
 		//////////////////////////////////////////////////////////////////////////////////
 		/*
         //Creating  Arrays Representing Equations
