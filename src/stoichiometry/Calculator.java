@@ -3,6 +3,8 @@ package stoichiometry;
 import java.util.ArrayList;
 import java.util.List;
 
+import Jama.Matrix;
+
 public class Calculator {
 
 	/* calcs the mass of a compound. Compound is taken in as a List
@@ -60,38 +62,54 @@ public class Calculator {
 		for (int i:numbers)
 			if (i!=0){
 				count++;
-				if(i%2==0)
-					even.add(i);
+				if(i%2==0) even.add(i);
 				else{
-					if(i<smallest)
-						smallest=i;
+					if(i<smallest) smallest=i;
 					odd.add(i);
 				}
 		}
 
 		//if all numbers even, divide everything by 2 and set multiplier
 		if (count==even.size()){
-			for (int i: even)
-				posInts.add(i/2);
-			mult *= 2;
+			for (int i: even) posInts.add(i/2);
+			mult = 2;
 		//if all numbers odd, (n-k)/2 where k=smallest number and n = all other numbers
-		}else if (count==odd.size()){
+		}else if (count==odd.size())
 			for (int i : odd)
-				if(i!=smallest)
-					posInts.add((i-smallest)/2);
-				else
-					posInts.add(i);
+				if(i!=smallest) posInts.add((i-smallest)/2);
+				else posInts.add(i);
 		//if mix of odd/even, divide all even by 2
-		}else{
-			for(int i:even)
-				odd.add(i/2);
+		else{
+			for(int i:even) odd.add(i/2);
 			posInts = odd;
 		}
 
 		for (int i:posInts)
-			if(!noDupe.contains(i))
-				noDupe.add(i);
+			if(!noDupe.contains(i)) noDupe.add(i);
 		
 		return mult*findGCD(noDupe);
 	}
+	
+	public static boolean balanceEquation(Equation chemical){
+		List<Integer> coef = new ArrayList<Integer>();
+		
+		Matrix lhs = new Matrix(chemical.lhsMatrix);
+		Matrix rhs = new Matrix(chemical.rhsMatrix, chemical.rhsMatrix.length);
+		Matrix ans = lhs.solve(rhs);
+		
+		System.out.println("--------Solution Matrix--------");  
+        for (int i=0;i<chemical.reactCompoundList.size()+chemical.prodCompoundList.size();i++)
+        	coef.add((int)(100000*(float)ans.get(i, 0)));
+        
+        //Printing Answers
+		int gcd = findGCD(coef);
+		System.out.println("GCD:"+gcd);
+        for (int i=0;i<chemical.reactCompoundList.size()+chemical.prodCompoundList.size();i++)
+        	System.out.println(coef.get(i)/gcd);
+		
+		return true;
+	}
+	
+	
+	
 }

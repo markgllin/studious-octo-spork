@@ -1,7 +1,6 @@
 package stoichiometry;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Equation {
@@ -66,8 +65,7 @@ public class Equation {
 			for (Compound c:reactCompoundList){
 				i++;
 				for (Pair p: c.parsedCompound)
-					if (!p.getPairElement().elementExists())
-						return false;
+					if (!p.getPairElement().elementExists()) return false;
 					else if (p.getPairElement().equals(elem))
 						row[i] +=(double)p.getPairMultiplier();
 			}
@@ -75,8 +73,7 @@ public class Equation {
 			for (Compound c:prodCompoundList){
 				i++;
 				for (Pair p: c.parsedCompound)
-					if (!p.getPairElement().elementExists())
-						return false;
+					if (!p.getPairElement().elementExists()) return false;
 					else if (p.getPairElement().equals(elem))
 						row[i] +=(double)p.getPairMultiplier()*-1;
 			}
