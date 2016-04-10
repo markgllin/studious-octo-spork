@@ -44,7 +44,7 @@ public class Parser {
 
 				//if compound length ==1, only compound present
 				if ((splitComp.length)==1){
-					System.out.println(splitComp[0]);
+					//System.out.println(splitComp[0]);
 					curCompound = new Pair(Initialization.findElementInfo(splitComp[COMP]), multiplier);
 				}
 				//if compound length==2, compound and multiplier present
