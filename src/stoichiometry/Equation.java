@@ -7,6 +7,7 @@ public class Equation {
 	List<Compound> reactCompoundList = new ArrayList<Compound>();
 	List<Compound> prodCompoundList = new ArrayList<Compound>();
 	List<Element> elements = new ArrayList<Element>();
+	List<Integer> coefficients;
 	double[][] lhsMatrix;
 	double[] rhsMatrix;
 	
@@ -25,7 +26,6 @@ public class Equation {
 	
 	public void setReactantCompounds(String eqReactants){
 		for (String comp: Parser.splitEquation(eqReactants)){
-			System.out.println(comp);
 			reactCompoundList.add(new Compound(comp));
 			reactCompoundList.get(0).parsedCompound.get(0).getPairElement().getName();
 		}

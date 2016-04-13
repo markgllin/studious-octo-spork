@@ -3,19 +3,19 @@ package stoichiometry;
 import java.util.List;
 
 public class Compound {
-	private String formula;
+	private String compoundName;
 	private float mass;
 	List<Pair> parsedCompound;
 	
 	public Compound(String compoundFormula){
-		formula = compoundFormula;
-		setParsedFormula(Parser.parseFormula(compoundFormula));
+		compoundName = compoundFormula;
+		setCompoundElements(Parser.parseFormula(compoundFormula));
 		mass = Calculator.calcCompoundMass(parsedCompound);
 		setMass(mass);
 	}
 	
-	public String getFormula(){
-		return formula;
+	public String getCompoundName(){
+		return compoundName;
 	}
 	
 	public void setMass(float compoundMass){
@@ -26,11 +26,11 @@ public class Compound {
 		return mass;
 	}
 
-	public void setParsedFormula(List<Pair> parsed){
+	public void setCompoundElements(List<Pair> parsed){
 		parsedCompound = parsed;
 	}
 	
-	public List<Pair> getParsedFormula(){
+	public List<Pair> getComopundElements(){
 		return parsedCompound;
 	}
 

@@ -90,26 +90,29 @@ public class Calculator {
 		return mult*findGCD(noDupe);
 	}
 	
-	public static boolean balanceEquation(Equation chemical){
+	public static List<Integer> balanceEquation(Equation chemical){
+		List<Integer> ansCoef = new ArrayList<Integer>();
 		List<Integer> coef = new ArrayList<Integer>();
 		
 		Matrix lhs = new Matrix(chemical.lhsMatrix);
 		Matrix rhs = new Matrix(chemical.rhsMatrix, chemical.rhsMatrix.length);
 		Matrix ans = lhs.solve(rhs);
 		
-		System.out.println("--------Solution Matrix--------");  
         for (int i=0;i<chemical.reactCompoundList.size()+chemical.prodCompoundList.size();i++)
         	coef.add((int)(100000*(float)ans.get(i, 0)));
         
         //Printing Answers
 		int gcd = findGCD(coef);
-		System.out.println("GCD:"+gcd);
         for (int i=0;i<chemical.reactCompoundList.size()+chemical.prodCompoundList.size();i++)
-        	System.out.println(coef.get(i)/gcd);
+        	ansCoef.add(coef.get(i)/gcd);
 		
-		return true;
+		return ansCoef;
 	}
 	
-	
+	public static float convertUnit(){
+		
+		
+		return 0f;
+	}
 	
 }
