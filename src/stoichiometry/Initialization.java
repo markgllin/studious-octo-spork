@@ -12,13 +12,14 @@ import Jama.Matrix;
 
 public class Initialization {
 	private static List<Element> allElements = new ArrayList<Element>();
-	//private static String dataFile = "C:\\Users\\marklin\\Desktop\\pt-data2.txt";
-	private static String dataFile = "C:\\Users\\Mark.Lin\\Desktop\\pt-data2.txt";
+	private static String dataFile = "C:\\Users\\marklin\\Desktop\\pt-data2.txt";
+	//private static String dataFile = "C:\\Users\\Mark.Lin\\Desktop\\pt-data2.txt";
 
 	public static void main(String args[]) throws IOException{
 		initializeElems();
 		
 		System.out.println(Calculator.pvNRT(79.97f, 4.167f, 0f, 303.0f, "n"));
+
 		////////////////////////////////////////////////////////////////
 		////EXAMPLE UNIT CONVERTER
 		
@@ -31,6 +32,7 @@ public class Initialization {
 		/////EXAMPLE BALANCER///
 		
 		/*
+
 		String reactants = "CuSCN+KIO3+HCl";
 		String products = "CuSO4+KCl+HCN+ICl+H2O";
 
@@ -71,7 +73,7 @@ public class Initialization {
 			grams = (weight*chemical.coefficients.get(i+reactSize)*chemical.prodCompoundList.get(i).getMass())/(coef*molarMass);
 			System.out.println(chemical.prodCompoundList.get(i).getCompoundName()+":"+grams+"g");
 		}
-		*/
+
         //////////////////////////////////////////////////////////////////////////////////
         //////////EXAMPLE CALCULATING MOLAR MASS//////////
 	/*
