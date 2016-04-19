@@ -16,28 +16,64 @@ public class Initialization {
 	private static String dataFile = "C:\\Users\\Mark.Lin\\Desktop\\pt-data2.txt";
 
 	public static void main(String args[]) throws IOException{
-
 		initializeElems();
-		Scanner in = new Scanner(System.in);
 		
-		System.out.println("Enter reactants:");
-		String reactants = in.nextLine();
-		System.out.println("Enter products");
-		String products = in.nextLine();
-		in.close();
+		System.out.println(Calculator.pvNRT(79.97f, 4.167f, 0f, 303.0f, "n"));
+		////////////////////////////////////////////////////////////////
+		////EXAMPLE UNIT CONVERTER
 		
+		/*
+		System.out.println(UnitCalculator.volumeConverter(112, "M3", "OZ"));
+		System.out.println(UnitCalculator.molConverter(3, "AVOGAD", "MOL"));
+		*/
+		
+		/////////////////////////////////////////////////////////////////////////////////////
+		/////EXAMPLE BALANCER///
+		
+		/*
+		String reactants = "CuSCN+KIO3+HCl";
+		String products = "CuSO4+KCl+HCN+ICl+H2O";
+
 		Equation chemical = new Equation();
 		if(!chemical.createEquation(reactants, products))
 			System.out.println("Equation was not valid");
 		
 		try{
-				Calculator.balanceEquation(chemical);
+			chemical.coefficients=Calculator.balanceEquation(chemical);
 		}catch(Exception e){
 			System.out.println("There was an error in the equation. Check to make sure it was inputted correctly.");
 		}
-        
+		
+		float molarMass;
+		float grams;
+		int coef;
+		
+		float termNum = 1f;
+		float weight = 28f;
+		
+		if (termNum-chemical.reactCompoundList.size()-1>0)
+			molarMass = chemical.prodCompoundList.get(Math.round(termNum-chemical.reactCompoundList.size()-1)).getMass();
+		else{
+			System.out.println("TERM:"+chemical.reactCompoundList.get(Math.round(termNum)).getCompoundName());
+			molarMass = chemical.reactCompoundList.get(Math.round(termNum)).getMass();
+		}
+		
+		coef = chemical.coefficients.get(Math.round(termNum));
+		
+		for (int i=0; i<chemical.reactCompoundList.size();i++){
+			grams = (weight*chemical.coefficients.get(i)*chemical.reactCompoundList.get(i).getMass())/(coef*molarMass);
+			System.out.println(chemical.reactCompoundList.get(i).getCompoundName()+":"+grams+"g");
+		}
+		
+		int reactSize = chemical.reactCompoundList.size();
+		
+		for (int i=0; i<chemical.prodCompoundList.size();i++){
+			grams = (weight*chemical.coefficients.get(i+reactSize)*chemical.prodCompoundList.get(i).getMass())/(coef*molarMass);
+			System.out.println(chemical.prodCompoundList.get(i).getCompoundName()+":"+grams+"g");
+		}
+		*/
         //////////////////////////////////////////////////////////////////////////////////
-        
+        //////////EXAMPLE CALCULATING MOLAR MASS//////////
 	/*
 		float mass, percentMass;
 		Compound compound;
